@@ -11,8 +11,7 @@ class Station
 
 	def self.all
 		stations = []
-		database = PG.connect({:dbname => 'trainstation_test'})
-		results = database.exec("SELECT * FROM station;")
+		results = DB.exec("SELECT * FROM station;")
 		results.each do |result|
 			name = result ['name']
 			stations << Station.new(name)
@@ -21,8 +20,7 @@ class Station
 	end
 
 	def save
-		database = PG.connect({:dbname => 'trainstation_test'})
-		database.exec("INSERT INTO station (name) VALUES ('#{@name}');")
+		DB.exec("INSERT INTO station (name) VALUES ('#{@name}');")
 	end
 
 	def ==(another_station)

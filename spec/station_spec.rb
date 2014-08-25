@@ -1,14 +1,4 @@
-require 'station'
-require 'rspec'
-require 'pg'
-
-DB = PG.connect({:dbname => 'trainstation_test'})
-
-RSpec.configure do |config|
-  config.after(:each) do
-    DB.exec("DELETE FROM station *;")
-    end
-end
+require 'spec_helper'
 
 describe Station do 
 	it 'should initialize with a name' do 
