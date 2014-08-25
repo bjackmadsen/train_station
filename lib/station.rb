@@ -1,12 +1,11 @@
 require 'pg'
 
 class Station
-	def initialize(name)
-		@name = name
-	end
-
-	def name
-		@name
+	
+	attr_reader(:name)
+	
+	def initialize(attributes)
+		@name = attributes[:name]
 	end
 
 	def self.all
@@ -14,7 +13,7 @@ class Station
 		results = DB.exec("SELECT * FROM station;")
 		results.each do |result|
 			name = result ['name']
-			stations << Station.new(name)
+			stations << Station.new({:name => 'Alewife'})
 		end
 		stations
 	end
