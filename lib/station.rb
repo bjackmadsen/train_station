@@ -24,4 +24,8 @@ class Station
 		database = PG.connect({:dbname => 'trainstation_test'})
 		database.exec("INSERT INTO station (name) VALUES ('#{@name}');")
 	end
+
+	def ==(another_station)
+    	self.name == another_station.name
+    end
 end

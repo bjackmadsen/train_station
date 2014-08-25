@@ -31,4 +31,10 @@ describe Station do
 		station.save
 		expect(Station.all).to eq [station]
 	end
+
+	it 'is the same station if it has the same name' do
+		station1 = Station.new('Alewife')
+		station2 = Station.new('Alewife')
+		expect(station1).to eq station2
+	end
 end
