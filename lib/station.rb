@@ -6,4 +6,8 @@ class Station
 	def name
 		@name
 	end
+
+	def self.all
+		[]
+	end
 end

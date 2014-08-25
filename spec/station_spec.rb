@@ -11,4 +11,9 @@ describe Station do
 		station = Station.new('Alewife')
 		expect(station.name).to eq 'Alewife'
 	end
+
+	it 'should start with no train stations' do
+		station = Station.new('Alewife')
+		expect(Station.all).to eq []
+	end
 end
