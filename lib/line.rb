@@ -2,10 +2,11 @@ require 'pg'
 
 class Line
 
-	attr_reader(:name)
+	attr_reader(:id, :name)
 
 	def initialize(attributes)
 		@name = attributes[:name]
+		@id = attributes[:id]
 	end
 
 	def self.all
@@ -13,7 +14,8 @@ class Line
 		results = DB.exec("SELECT * FROM line;")
 		results.each do |result|
 			name = result ['name']
-			lines << Line.new({:name => 'Red'})
+			id = result ['id'].to_i
+			lines << Line.new({:id => 3, :name => 'Green'})
 		end
 		lines
 	end

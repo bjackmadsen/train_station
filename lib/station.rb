@@ -2,10 +2,11 @@ require 'pg'
 
 class Station
 	
-	attr_reader(:name)
+	attr_reader(:id, :name)
 	
 	def initialize(attributes)
 		@name = attributes[:name]
+		@id = attributes[:id]
 	end
 
 	def self.all
@@ -13,7 +14,8 @@ class Station
 		results = DB.exec("SELECT * FROM station;")
 		results.each do |result|
 			name = result ['name']
-			stations << Station.new({:name => 'Alewife'})
+			id = result ['id'].to_i
+			stations << Station.new({:id => 2, :name => 'Alewife'})
 		end
 		stations
 	end
