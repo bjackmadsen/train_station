@@ -27,4 +27,17 @@ describe Station do
 		station2 = Station.new({:name =>'Alewife'})
 		expect(station1).to eq station2
 	end
+
+	it 'should allow a staion to have many train lines' do 
+		station = Station.new({:name => 'Alewife'})
+		station.save
+		line = Line.new({:name => 'Green'})
+		line.save
+		line1 = Line.new({:name => 'Blue'})
+		line1.save
+		Station.stops(line.id, station.id)
+		Station.stops(line1.id, station.id)
+		lines = Line.lines_to_station(station.id)
+		expect(lines).to eq [line, line1]
+	end
 end

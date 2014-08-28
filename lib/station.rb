@@ -29,13 +29,18 @@ class Station
     	self.name == another_station.name && self.id == another_station.id
     end
 
+    def self.stops(line_id, station_id)
+		results = DB.exec("INSERT INTO stops (line_id, station_id) VALUES (#{line_id}, #{station_id}) RETURNING id;")
+		@id = results.first['id'].to_i
+	end
+
     def self.stations_to_lines(line_id)
 		results = DB.exec("SELECT station. * FROM line JOIN stops ON (line.id = stops.line_id) JOIN station ON (stops.station_id = station.id) WHERE line_id = #{line_id};")
 		stations = []
 		results.each do |result|
 			name = result['name']
 			id = result['id'].to_i
-			stations << Station.new({:name => name, :id => id})
+			stations << Station.new({:id => id, :name => name})
 		end
 	stations
 	end
