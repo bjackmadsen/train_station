@@ -59,13 +59,10 @@ def passenger_menu
 	system('clear')
 	puts "*** PASSENGER MENU ***"
 	puts "Type [1] to view the stops along a train line."
-	puts "Type [2] to view a station location and the lines that stop there."
 	puts "To return to the maine menu please type [m]"
 	user_choice = gets.chomp
 	if user_choice == '1'
-		list_lines
-	elsif user_choice == '2'
-		list_stations
+		track_lines
 	elsif user_choice == 'm'
 		welcome
 	else
@@ -233,16 +230,16 @@ def track_lines
 	end
 	puts "\n"
 	puts "Type [1] to list a new line."
-	puts "Type [2] to return to the operator menu."
+	puts "Type [2] to return to the main menu."
 	user_choice = gets.chomp
 	if user_choice == '1'
 		track_lines
 	elsif user_choice == '2'
-		operator_menu
+		welcome
 	else 
 		puts "Sorry, that wasn't a valid option."
 		sleep(1.0)
-		add_stop
+		track_lines
 	end	
 end			
 welcome
