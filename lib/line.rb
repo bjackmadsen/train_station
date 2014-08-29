@@ -20,6 +20,14 @@ class Line
 		lines
 	end
 
+	def self.delete(input_line)
+    	Line.all.each do |line|
+      	if input_line == line.name
+        DB.exec("DELETE FROM line WHERE name = '#{input_line}';")
+      	end
+      end
+  	end
+
 	def save
 		results = DB.exec("INSERT INTO line (name) VALUES ('#{@name}') RETURNING id;")
 		@id = results.first['id'].to_i

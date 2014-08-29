@@ -88,9 +88,23 @@ def add_station
 end
 
 def delete_station
+	puts "Which line would you like to remove"
+  	input_station = gets.chomp
+  	Station.delete(input_station)
+  	puts "Station removed"
+end
+
+def delete_line
+	puts "Which line would you like to remove"
+  	input_line = gets.chomp
+  	Line.delete(input_line)
+  	puts "Line removed"
+  	sleep(0.5)
+  	list_lines
 end
 
 def list_stations
+	system('clear')
 	puts "*** TRAIN STATIONS ***"
 	Station.all.each do |station|
 		puts "#{station.name}"
@@ -113,6 +127,30 @@ def list_stations
 	end	
 end
 
+def list_lines
+	system('clear')
+	puts "*** TRAIN LINES ***"
+	Line.all.each do |line|
+		puts "#{line.name}"
+	end
+	puts "\n"
+	puts "Type [1] to delete a line."
+	puts "Type [2] to return to the operator menu."
+	puts "Type [3] to return to the main menu."
+	user_choice = gets.chomp
+	if user_choice == '1'
+		delete_line
+	elsif user_choice == '2'
+		operator_menu
+	elsif user_choice == '3'
+		welcome
+	else 
+		puts "Sorry, that wasn't a valid option."
+		sleep(1.0)
+		list_lines
+	end	
+end
+
 def add_line
 	system('clear')
 	puts "*** ADD A TRAIN LINE ***"
@@ -126,24 +164,33 @@ def add_line
 end	
 
 def line_stop
-	puts "\n"
-	puts "Where will this train line go?"
+	system('clear')
+	puts "*** ADD A TRAIN STOP ***"
 	sleep(0.5)
-	puts "Select a stop from the list below and press enter."
+	puts "Select a train line from the list below and press enter."
+	puts "\n"
+	Line.all.each do |line|
+		puts "#{line.name}"
+	end
+	puts "\n"
+	line_name = gets.chomp
+	puts "\n"
+	puts "Now select a stop for this line:"
 	puts "\n"
 	Station.all.each do |station|
 		puts "#{station.name}"
 	end
 	puts "\n"
 	station_name = gets.chomp
-	new_stop = Line.stops(new_line, station_name)
-	puts "You have assigned the '#{new_line}' line to stop at '#{station_name}' Station!"
+	new_stop = Station.stops(line_name, station_name)
+	new_stop.save
+	puts "You have assigned the '#{line_name}' line to stop at '#{station_name}' Station!"
 	puts "\n"
 	puts "Type [1] to add another stop."
 	puts "Type [2] to return to the operator menu."
 	user_choice = gets.chomp
 	if user_choice == '1'
-		add_stop
+		line_stop
 	elsif user_choice == '2'
 		operator_menu
 	else 

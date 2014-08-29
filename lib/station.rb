@@ -20,6 +20,14 @@ class Station
 		stations
 	end
 
+	def self.delete(input_station)
+    	Station.all.each do |line|
+      	if input_station == station.name
+        DB.exec("DELETE FROM station WHERE name = '#{input_station}';")
+      	end
+      end
+  	end
+
 	def save
 		results = DB.exec("INSERT INTO station (name) VALUES ('#{name}') RETURNING id;")
 		@id = results.first['id'].to_i
@@ -29,8 +37,8 @@ class Station
     	self.name == another_station.name && self.id == another_station.id
     end
 
-    def self.stops(line_id, station_id)
-		results = DB.exec("INSERT INTO stops (line_id, station_id) VALUES (#{line_id}, #{station_id}) RETURNING id;")
+    def self.stops(line_name, station_name)
+		results = DB.exec("INSERT INTO stops (line_id, station_id) VALUES (#{line_name}, #{station_name}) RETURNING id;")
 		@id = results.first['id'].to_i
 	end
 
