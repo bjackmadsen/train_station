@@ -85,7 +85,7 @@ def add_station
 	puts "\n"
 	puts "'#{new_station.name}' has been added!"
 	sleep(1.0)
-	operator_menu
+	list_stations
 end
 
 def delete_station
@@ -114,14 +114,17 @@ def list_stations
 	end
 	puts "\n"
 	puts "Type [1] to delete a station."
-	puts "Type [2] to return to the operator menu."
-	puts "Type [3] to return to the main menu."
+	puts "Type [2] to add a station."
+	puts "Type [3] to return to the operator menu."
+	puts "Type [4] to return to the main menu."
 	user_choice = gets.chomp
 	if user_choice == '1'
 		delete_station
 	elsif user_choice == '2'
-		operator_menu
+		add_station
 	elsif user_choice == '3'
+		operator_menu
+	elsif user_choice == '4'
 		welcome
 	else 
 		puts "Sorry, that wasn't a valid option."
@@ -138,14 +141,20 @@ def list_lines
 	end
 	puts "\n"
 	puts "Type [1] to delete a line."
-	puts "Type [2] to return to the operator menu."
-	puts "Type [3] to return to the main menu."
+	puts "Type [2] to add a line."
+	puts "Type [3] to add a stop."
+	puts "Type [4] to return to the operator menu."
+	puts "Type [5] to return to the main menu."
 	user_choice = gets.chomp
 	if user_choice == '1'
 		delete_line
 	elsif user_choice == '2'
-		operator_menu
+		add_line	
 	elsif user_choice == '3'
+		line_stop
+	elsif user_choice == '4'
+		operator_menu
+	elsif user_choice == '5'
 		welcome
 	else 
 		puts "Sorry, that wasn't a valid option."
@@ -163,7 +172,8 @@ def add_line
 	new_line.save
 	puts "\n"
 	puts "'#{new_line.name}' has been added!"
-	line_stop
+	sleep(1.0)
+	list_lines
 end	
 
 def line_stop
@@ -218,10 +228,22 @@ def track_lines
 	line_name = gets.chomp
 	line_id = Line.find(line_name)
 	puts "\n"
-	# binding.pry
 	Station.stations_to_lines(line_id).each do |station|
-		puts "'#{station.name}'"
+		puts "The '#{line_name}' line will stop at the '#{station.name}' station."
 	end
+	puts "\n"
+	puts "Type [1] to list a new line."
+	puts "Type [2] to return to the operator menu."
+	user_choice = gets.chomp
+	if user_choice == '1'
+		track_lines
+	elsif user_choice == '2'
+		operator_menu
+	else 
+		puts "Sorry, that wasn't a valid option."
+		sleep(1.0)
+		add_stop
+	end	
 end			
 welcome
 		
