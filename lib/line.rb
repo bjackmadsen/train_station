@@ -48,9 +48,9 @@ class Line
 		@id = results.first['id'].to_i
 	end
 
-	def self.lines_to_station(station_id)
+	def self.lines_to_station(line_id)
     	lines = []
-    	results = DB.exec("SELECT line. * FROM station JOIN stops ON (station.id = stops.station_id) JOIN line ON (stops.line_id = line.id) WHERE station_id = #{station_id};")
+    	results = DB.exec("SELECT line.* FROM station JOIN stops ON (station.id = stops.station_id) JOIN line ON (stops.line_id = line.id) WHERE station_id = #{line_id};")
     	results.each do |result|
     		name = result ['name']
     		id = result ['id'].to_i

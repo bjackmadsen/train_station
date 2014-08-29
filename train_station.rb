@@ -203,6 +203,25 @@ def line_stop
 		sleep(1.0)
 		add_stop
 	end	
-end 			
+end
+
+def track_lines
+	system('clear')
+	puts "*** TRACK A TRAIN LINE ***"
+	sleep(0.5)
+	puts "Select a train line from the list below and press enter."
+	puts "\n"
+	Line.all.each do |line|
+		puts "#{line.name}"
+	end
+	puts "\n"
+	line_name = gets.chomp
+	line_id = Line.find(line_name)
+	puts "\n"
+	# binding.pry
+	Station.stations_to_lines(line_id).each do |station|
+		puts "'#{station.name}'"
+	end
+end			
 welcome
 		
