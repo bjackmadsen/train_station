@@ -9,6 +9,7 @@ class Line
 		@id = attributes[:id]
 	end
 
+
 	def self.all
 		lines = []
 		results = DB.exec("SELECT * FROM line;")
@@ -20,6 +21,11 @@ class Line
 		lines
 	end
 
+	def self.find(line_name)
+		results = DB.exec("SELECT * FROM line WHERE name = '#{line_name}';")
+		line_id = results.first[:id]
+	end
+	
 	def self.delete(input_line)
     	Line.all.each do |line|
       	if input_line == line.name

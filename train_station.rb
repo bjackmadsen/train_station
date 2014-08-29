@@ -174,6 +174,7 @@ def line_stop
 	end
 	puts "\n"
 	line_name = gets.chomp
+	line_id = Line.find(line_name)
 	puts "\n"
 	puts "Now select a stop for this line:"
 	puts "\n"
@@ -182,7 +183,8 @@ def line_stop
 	end
 	puts "\n"
 	station_name = gets.chomp
-	new_stop = Station.stops(line_name, station_name)
+	station_id = Station.find(station_name)
+	new_stop = Station.stops(line_id, station_id)
 	new_stop.save
 	puts "You have assigned the '#{line_name}' line to stop at '#{station_name}' Station!"
 	puts "\n"
