@@ -1,6 +1,7 @@
 require './lib/line'
 require './lib/station'
 require 'pg'
+require 'pry'
 
 DB = PG.connect(:dbname => 'train_system')
 
@@ -88,10 +89,12 @@ def add_station
 end
 
 def delete_station
-	puts "Which line would you like to remove"
+	puts "Which station would you like to remove"
   	input_station = gets.chomp
   	Station.delete(input_station)
   	puts "Station removed"
+  	sleep(0.5)
+  	list_stations
 end
 
 def delete_line
@@ -185,7 +188,7 @@ def line_stop
 	station_name = gets.chomp
 	station_id = Station.find(station_name)
 	new_stop = Station.stops(line_id, station_id)
-	new_stop.save
+	new_stop
 	puts "You have assigned the '#{line_name}' line to stop at '#{station_name}' Station!"
 	puts "\n"
 	puts "Type [1] to add another stop."

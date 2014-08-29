@@ -23,7 +23,7 @@ class Line
 
 	def self.find(line_name)
 		results = DB.exec("SELECT * FROM line WHERE name = '#{line_name}';")
-		line_id = results.first[:id]
+		line_id = results.first['id']
 	end
 	
 	def self.delete(input_line)

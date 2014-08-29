@@ -22,11 +22,11 @@ class Station
 
 	def self.find(station_name)
 		results = DB.exec("SELECT * FROM station WHERE name = '#{station_name}';")
-		station_id = results.first[:id]
+		station_id = results.first['id']
 	end
 
 	def self.delete(input_station)
-    	Station.all.each do |line|
+    	Station.all.each do |station|
       	if input_station == station.name
         DB.exec("DELETE FROM station WHERE name = '#{input_station}';")
       	end
